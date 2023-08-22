@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Pomodoro Vibes</title>
+</head>
+
+<body>
+  <div id="content" class="flex-container">
+    <div id="todo-container" class="flex-item">
+      <div class="todo">
+        <h1 class="todo_title">Matérias de hoje</h1>
+        <div class="todo__list" id="todoList">
+          <!-- Sua lista de tarefas aqui -->
+        </div>
+        <div class="todo__new-item" id="newItem">
+          <input type="text" placeholder="Adicionar tarefa">
+        </div>
+      </div>
+    </div>
+
+    <div id="pomodoro-container" class="flex-item">
+      <div class="timerContainer">
+        <main class="timerMain">
+
+          <h1>Timer Pomodoro</h1>
+
+          <div id="menu">
+            <label for="pomodoro-input">Pomodoro (minutos):</label>
+            <input type="number" id="pomodoro-input" value="25" min="1">
+            <label for="break-input">Pausa (minutos):</label>
+            <input type="number" id="break-input" value="5" min="1">
+            <label for="long-break-input">Pausa longa (minutos):</label>
+            <input type="number" id="long-break-input" value="15" min="1">
+            <button id="update-btn">Atualizar</button>
+            <div id="session-info">Sessão <span id="current-session">1</span>/4</div>
+          </div>
+
+          <div id="timer">
+            <div id="time-display">25:00</div>
+            <button id="start-btn">Iniciar</button>
+            <button id="reset-btn">Resetar</button>
+          </div>
+
+          <div id="music-player">
+            <audio id="audio-player" controls loop>
+            </audio>
+            <div id="song-name"></div>
+            <button class="buttonSong" id="previous-btn">Anterior</button>
+            <button class="buttonSong" id="next-btn">Próxima</button>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+
+  <video id="background-video" autoplay muted loop></video>
+  <div class="button-wallpaper">
+    <h5>Tema</h5>
+    <button id="previous-video-button">⇦</button>
+    <button id="next-video-button">⇨</button>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
