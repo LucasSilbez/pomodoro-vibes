@@ -6,28 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <title>Pomodoro Vibes</title>
+  <link rel="icon" type="image/png" href="assets/logo2.png">
 </head>
 
 <body>
+
   <div id="content" class="flex-container">
     <div id="todo-container" class="flex-item">
       <div class="todo">
-        <h1 class="todo_title">Matérias de hoje</h1>
-        <div class="todo__list" id="todoList">
-          <!-- Sua lista de tarefas aqui -->
-        </div>
+        <h1 class="todo_title">Tarefas</h1>
+        <div class="todo__list" id="todoList"></div>
+
         <div class="todo__new-item" id="newItem">
-          <input type="text" placeholder="Adicionar tarefa">
+            <form id="todoForm">
+                <input type="text" id="todoInput" placeholder="Adicionar tarefa">
+            </form>
         </div>
-      </div>
+        </div>
     </div>
 
     <div id="pomodoro-container" class="flex-item">
       <div class="timerContainer">
         <main class="timerMain">
-
           <h1>Timer Pomodoro</h1>
-
           <div id="menu">
             <label for="pomodoro-input">Pomodoro (minutos):</label>
             <input type="number" id="pomodoro-input" value="25" min="1">
@@ -38,26 +39,63 @@
             <button id="update-btn">Atualizar</button>
             <div id="session-info">Sessão <span id="current-session">1</span>/4</div>
           </div>
-
           <div id="timer">
             <div id="time-display">25:00</div>
             <button id="start-btn">Iniciar</button>
             <button id="reset-btn">Resetar</button>
           </div>
-
           <div id="music-player">
-            <audio id="audio-player" controls loop>
-            </audio>
+            <audio id="audio-player" controls loop></audio>
             <div id="song-name"></div>
             <button class="buttonSong" id="previous-btn">Anterior</button>
             <button class="buttonSong" id="next-btn">Próxima</button>
           </div>
-
         </main>
       </div>
     </div>
   </div>
 
+  <button id="openTableButton">Notas</button>
+
+  <div id="modalExcel">
+    <div class="modal-content-excel">
+      <div class="excel-toolbar">
+        <button class="btn-undo" onclick="excelUndo()" title="Desfazer (Ctrl+Z)">↩ Desfazer</button>
+        <div style="width: 1px; height: 20px; background: #ccc; margin: 0 5px;"></div>
+        
+        <button onclick="excelStyle('bold')">B</button>
+        <button onclick="excelStyle('italic')">I</button>
+        <button onclick="excelStyle('underline')"><u>U</u></button>
+        
+        <select id="fontSizeSelect" onchange="excelFontSize(this.value)">
+          <option value="13px">13</option>
+          <option value="16px">16</option>
+          <option value="20px">20</option>
+          <option value="28px">28</option>
+        </select>
+
+        <label style="font-size: 12px;">Letra:</label>
+        <input type="color" id="excelColor" onmousedown="saveHistory()" oninput="excelColor('color', this.value)">
+        
+        <label style="font-size: 12px;">Fundo:</label>
+        <input type="color" id="excelBg" value="#ffffff" onmousedown="saveHistory()" oninput="excelColor('backgroundColor', this.value)">
+        
+        <button class="btn-delete" onclick="excelDeleteContent()">🗑️ Excluir</button>
+
+        <div style="width: 1px; height: 20px; background: #ccc; margin: 0 5px;"></div>
+        <button onclick="excelSave()" style="color: #217346;">Salvar</button>
+        <span id="selected-info">-</span>
+        <button class="btn-close-excel" onclick="toggleExcel(false)">Fechar</button>
+      </div>
+
+      <div class="excel-container">
+        <table id="excelTable">
+          <thead><tr id="ex-header"><th class="clickable" onclick="clearSelection()">X</th></tr></thead>
+          <tbody id="ex-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <video id="background-video" autoplay muted loop></video>
   <div class="button-wallpaper">
@@ -67,7 +105,7 @@
   </div>
 
   <script src="script.js"></script>
-
+  
+ 
 </body>
-
 </html>

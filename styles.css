@@ -10,6 +10,21 @@ body {
 }
 
 
+
+h6 {
+  margin: 10px;
+  margin-top: 10px;
+  color: #FFF;
+}
+
+#openTableButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: #472929;
+}
+
 #pomodoro-container {
   position: absolute;
   top: 50%;
@@ -30,8 +45,6 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-
-
 }
 
 .todo_title {
@@ -43,7 +56,7 @@ body {
 .todo__list {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 30px;
-  width: 100%;
+  width: 80%;
   max-width: 350px;
   border-radius: 50px;
   margin-bottom: 20px;
@@ -76,7 +89,6 @@ body {
   color: #000;
 }
 
-
 .todo__item>input[type='text'] {
   border: none;
   width: 80%;
@@ -92,10 +104,11 @@ body {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-
 .todo__item>input[type='checkbox']:checked+div {
   text-decoration: line-through;
 }
+
+/* --- APENAS O CSS DO ADICIONAR TAREFAS --- */
 
 .todo__new-item {
   width: 100%;
@@ -107,6 +120,28 @@ body {
   justify-content: space-evenly;
   padding: 10px 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Adicionado para que o form não quebre o layout da div pai */
+#todoForm {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Ajustado de .todo__new-item > input para o ID atual */
+#todoInput {
+  background-color: #FFF;
+  border: none;
+  width: 80%;
+  outline: none;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#todoInput::placeholder {
+  font-style: italic;
+  font-weight: normal;
+  text-align: center;
 }
 
 .todo__new-item>input {
@@ -130,7 +165,6 @@ body {
   margin: 0 20px;
 }
 
-
 #background-video {
   position: fixed;
   top: 0;
@@ -141,23 +175,20 @@ body {
   z-index: -1;
 }
 
-
 a {
   font-size: 12px;
   color: antiquewhite;
   text-decoration: none;
   position: absolute;
   bottom: 10px;
-  /* Ajuste a distância do link em relação à borda inferior */
   left: 10px;
 }
-
 
 .timerContainer {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   width: 130%;
-  max-width: 280px;
+  max-width: 300px;
   border-radius: 100px;
   overflow: hidden;
 }
@@ -259,7 +290,6 @@ input[type="number"] {
 
 #next-video-button {
   background-color: #472929;
-
 }
 
 h5 {
@@ -268,109 +298,189 @@ h5 {
   margin-bottom: 0px;
 }
 
-
-/*Responsividade*/
-
-/* Laptops e monitores de desktop */
-@media (min-width: 1200px) and (max-width: 1599px) {
-
-  #pomodoro-container {
-    left: 50%;
-  }
-
-  #todo-container {
-    top: 10%;
-    left: 5%;
-  }
-
-  .todo_title {
-    font-size: 18px;
-  }
+#modalExcel {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
 }
 
-/* Tablet large */
-@media (min-width: 992px) and (max-width: 1199px) {
-  #todo-container {
-    top: 30%;
-    left: 5%;
-    font-size: 14px;
-  }
-
-  .todo_title {
-    font-size: 16px;
-  }
-
-  #pomodoro-container {
-    top: 50%;
-    left: 50%;
-  }
+.modal-content-excel {
+  background-color: #f0f0f0;
+  margin: 5vh auto;
+  width: 90%;
+  height: 85vh;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid #444;
 }
 
-/*Tablet small*/
-@media (min-width: 768px) and (max-width: 991px) {
+.excel-toolbar {
+  background: #fff;
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  flex-wrap: wrap;
+}
 
-  #todo-container {
-    left: 5%;
-    top: 16%;
-  }
+.excel-toolbar button {
+  padding: 6px 12px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #333;
+}
 
-  #pomodoro-container {
-    top: 50%;
-    left: 50%;
-  }
+.excel-toolbar button:hover { background: #f5f5f5; }
 
-  .todo_title {
-    font-size: 14px;
-  }
+.btn-delete {
+  background-color: #ffebee !important;
+  color: #c62828 !important;
+  border: 1px solid #ef9a9a !important;
+}
 
+.btn-undo {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+  border: 1px solid #bbdefb !important;
+}
 
+.excel-container {
+  flex: 1;
+  overflow: auto;
+  background: white;
+  user-select: none;
+}
+
+#excelTable {
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: #333;
+  width: max-content;
+}
+
+#excelTable th, #excelTable td {
+  border: 1px solid #d1d1d1;
+  width: 100px;
+  height: 28px;
+  outline: none;
+  font-size: 13px;
+  padding: 0 5px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#excelTable th.clickable {
+  background: #f8f9fa;
+  cursor: pointer;
+  user-select: none;
+}
+#excelTable th.clickable:hover { background: #e2e6ea; }
+
+.selected-group {
+  background-color: rgba(33, 115, 70, 0.15) !important;
+  box-shadow: inset 0 0 0 1px #217346;
+}
+
+#excelTable td:focus {
+  border: 2px solid #217346;
+  background: #fff !important;
+}
+
+.btn-close-excel {
+  margin-left: auto;
+  background: #472929 !important;
+  color: white !important;
+  border: none !important;
+}
+
+#selected-info {
+  font-size: 12px;
+  color: #666;
+  background: #eee;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* --- RESPONSIVIDADE (FIXANDO BOTÕES E AJUSTANDO LAYOUT) --- */
+
+@media (max-width: 1250px) {
   body {
-    background-repeat: repeat;
-    background-attachment: local;
+    overflow-y: auto !important; 
   }
 
-  #video-background {
-    width: 100%;
-    height: 100%;
+
+  /* Mantém botões estruturais visíveis e fixos */
+  #openTableButton {
+    position: fixed !important;
+    top: 10px !important;
+    right: 10px !important;
+    z-index: 1001;
   }
 
+  /* Fixa o menu do tema no canto inferior direito */
+  .button-wallpaper {
+    position: fixed !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    z-index: 1001;
+    background: rgba(0,0,0,0.5); /* Fundo leve para visibilidade */
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  .button-wallpaper h5 {
+  margin: 0 !important;   /* Remove as margens que empurram o fundo */
+  padding: 2px !important; /* Diminui o respiro interno do texto */
+  font-size: 12px;        /* Deixa o texto menor para ocupar menos espaço */
+  line-height: 1;         /* Remove altura extra de linha */
+  text-align: center;
 }
+  
 
-/*Mobile*/
-@media (max-width: 767px) {
-  #video-container {
-    display: none;
+  #content {
+    flex-direction: column;
+    align-items: center;
+    margin: 60px 0 120px 0; /* Espaço para botões fixos no topo e base */
   }
 
-  #todo-container {
-    display: none;
+  #todo-container, #pomodoro-container {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
   }
 
-  h1 {
-    font-size: 20px;
+  .todo {
+    position: relative !important;
+    width: 90% !important;
+    max-width: 350px;
   }
 
   .timerContainer {
-    padding: 2px;
-    width: 210%;
-    height: 100x;
-    max-width: 210px;
-    border-radius: 65px;
+    width: 90% !important;
+    max-width: 320px;
   }
 
-  .python-link {
-    display: none;
-  }
-
-  .danki-link {
-    display: none;
-  }
-
-  .native-link {
-    display: none;
-  }
-
-  .game-link {
-    display: none;
+  /* Garante que os botões de controle internos não quebrem o layout */
+  .timerMain button, .buttonSong, #update-btn {
+    min-width: 80px;
+    margin: 5px;
   }
 }
